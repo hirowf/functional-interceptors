@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  standalone: true,
+  template: `
+    <h1>Functional HttpInteceptors</h1>
+    <button (click)="callApi()">API Caller</button>
+  `,
 })
 export class AppComponent {
-  title = 'http-interceptor';
+  dataService = inject(DataService);
+  callApi = () =>
+    this.dataService.getData().subscribe({
+      next: (d) => console.log(d),
+    });
 }
