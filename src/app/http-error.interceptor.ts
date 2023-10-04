@@ -6,9 +6,13 @@ import {
 } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 
+/**
+ * Example using functional interceptor
+ */
+
 export const httpErrorInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -23,6 +27,6 @@ export const httpErrorInterceptor: HttpInterceptorFn = (
 
       console.log(errorMsg);
       return throwError(() => errorMsg);
-    })
+    }),
   );
 };
